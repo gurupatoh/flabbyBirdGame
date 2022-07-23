@@ -6,7 +6,7 @@ const config ={
   physics:{
     // arcade physics plugin -manages physics simulations
      default:'arcade',
-     arcade:{
+      arcade:{
 
      gravity:{y:200} 
      }
@@ -30,6 +30,7 @@ function preload(){
 // instatiating objects -interations etc
 let bird = null
 let totalDelta = null
+const VELOCITY =200
 function create(){  
   // x
   //y 
@@ -37,22 +38,26 @@ function create(){
   this.add.image(0,0,'sky').setOrigin(0)
   // middle of the height 
  bird = this.physics.add.sprite(config.width/10,config.height/2,'bird').setOrigin(0)
-bird.body.gravity.y=200
- 
+ this.input.on('pointerdown',flap)
+ this.input.keyboard.on('keydown_SPACE',flap)
+
 }
+
 //to =0 px/s
 //t1=2000px/s
 //t2=400px/s
 //t3=600px/s
 //60fps-seconds-rendering
+// if bird position x is same or larger than width of canvas go back to the left 
+// if bird position is smaller or equal to 0 then to the right back 
 function update(time,delta) {
-  totalDelta=totalDelta+delta
 
-  if (totalDelta <1000) {
-    return  }
-    console.log(bird.body.velocity.y)
-    totalDelta=0
 
+  
+}
+function flap() {
+  bird.body.velocity.y=-VELOCITY
+  
 }
   new Phaser.Game(config);
 
